@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rock in Rio 2026 — Trip Plan | La Paz → Rio</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --card: #141414;
+    --border: #2a2a2a;
+    --accent: #e2365c;
+    --accent2: #f7b731;
+    --gold: #ffd700;
+    --text: #e0e0e0;
+    --muted: #888;
+    --green: #2ecc71;
+    --blue: #5b9bd5;
+    --link: #64b5f6;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; color: #90caf9; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #1a0004 0%, #0d0010 40%, #000a14 100%);
+    border-bottom: 3px solid var(--accent);
+    padding: 60px 20px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(226,54,92,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(247,183,49,0.08) 0%, transparent 60%);
+    animation: heroPulse 8s ease-in-out infinite;
+  }
+  @keyframes heroPulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+  .hero-content { position: relative; z-index: 1; }
+  .hero h1 {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #e2365c, #f7b731, #e2365c);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+  @keyframes shimmer { to { background-position: 200% center; } }
+  .hero .subtitle {
+    font-size: 1.3rem;
+    color: var(--muted);
+    margin-top: 8px;
+    letter-spacing: 0.15em;
+  }
+  .hero .dates-badge {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 28px;
+    border: 2px solid var(--accent);
+    border-radius: 50px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.05em;
+  }
+  .hero .alert-tickets {
+    margin-top: 16px;
+    padding: 12px 24px;
+    background: rgba(226,54,92,0.15);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: 600;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.6} }
+  .hero .alert-tickets span { color: var(--gold); }
+  .hero-links { margin-top: 18px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .hero-links a {
+    padding: 8px 20px;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .hero-links a:hover { border-color: var(--accent); background: rgba(226,54,92,0.1); text-decoration: none; }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+  /* ── SECTIONS ── */
+  section { padding: 50px 0; }
+  section:nth-child(even) { background: rgba(255,255,255,0.015); }
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title .icon { font-size: 1.5rem; }
+
+  /* ── CARDS ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent2);
+  }
+  .card .price {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--green);
+    margin: 8px 0;
+  }
+  .card .price small { font-size: 0.9rem; font-weight: 400; color: var(--muted); }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { padding: 4px 0; color: var(--muted); font-size: 0.92rem; }
+  .card ul li::before { content: '▸ '; color: var(--accent); }
+  .card .btn-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 18px;
+    background: var(--accent);
+    color: #fff !important;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+  .card .btn-link:hover { background: #c92a4a; text-decoration: none; }
+
+  /* ── FLIGHT TABLE ── */
+  .flight-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+  }
+  .flight-table th {
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .flight-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.93rem;
+  }
+  .flight-table tr:hover td { background: rgba(255,255,255,0.03); }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .badge-green { background: rgba(46,204,113,0.2); color: var(--green); }
+  .badge-yellow { background: rgba(247,183,49,0.2); color: var(--accent2); }
+  .badge-blue { background: rgba(52,152,219,0.2); color: var(--blue); }
+
+  /* ── NEIGHBORHOOD COMPARISON ── */
+  .neigh-compare {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .neigh-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+  }
+  .neigh-card.recommended {
+    border-color: var(--green);
+    box-shadow: 0 0 20px rgba(46,204,113,0.08);
+  }
+  .neigh-card.recommended::after {
+    content: '★ RECOMMENDED';
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    background: var(--green);
+    color: #000;
+    padding: 3px 12px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+  .neigh-card h4 { font-size: 1.1rem; margin-bottom: 4px; }
+  .neigh-card .dist { color: var(--accent2); font-size: 0.85rem; margin-bottom: 10px; }
+  .neigh-meta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+  .neigh-meta span { font-size: 0.82rem; color: var(--muted); }
+  .neigh-meta strong { color: var(--text); }
+  .neigh-links { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .neigh-links a {
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  .neigh-links a:hover { border-color: var(--blue); text-decoration: none; }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -26px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--bg);
+  }
+  .tl-item.concert::before { background: var(--accent); border-color: var(--accent); }
+  .tl-date {
+    font-size: 0.82rem;
+    color: var(--accent2);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .tl-title { font-weight: 700; font-size: 1.05rem; }
+  .tl-desc { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+  .tl-desc a { font-size: 0.85rem; font-weight: 600; }
+
+  /* ── BUDGET ── */
+  .budget-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .budget-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  .budget-item .label { font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .budget-item .amount { font-size: 1.6rem; font-weight: 900; margin: 6px 0; }
+  .budget-item .note { font-size: 0.78rem; color: var(--muted); }
+  .budget-total {
+    background: linear-gradient(135deg, rgba(226,54,92,0.2), rgba(247,183,49,0.1));
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .budget-total .amount { font-size: 2.4rem; font-weight: 900; color: var(--accent2); }
+
+  /* ── TIPS ── */
+  .tips-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 14px;
+  }
+  .tip {
+    background: var(--card);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+  }
+  .tip strong { display: block; margin-bottom: 4px; }
+
+  /* ── QUICK LINKS BAR ── */
+  .quicklinks {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 30px;
+  }
+  .quicklinks h3 { color: var(--accent2); margin-bottom: 14px; font-size: 1rem; }
+  .quicklinks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px;
+  }
+  .quicklinks-grid a {
+    display: block;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .quicklinks-grid a:hover {
+    border-color: var(--accent);
+    background: rgba(226,54,92,0.08);
+    text-decoration: none;
+  }
+  .quicklinks-grid a .icon { margin-right: 6px; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+  }
+  footer a { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .card-grid, .neigh-compare, .budget-grid, .quicklinks-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 16px 30px; }
+    section { padding: 30px 0; }
+    .flight-table { font-size: 0.78rem; }
+    .flight-table th, .flight-table td { padding: 8px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <div class="hero-content">
+    <h1>Rock in Rio 2026</h1>
+    <p class="subtitle">Trip Plan • La Paz, Bolivia → Rio de Janeiro, Brasil</p>
+    <div class="dates-badge">🎸 SEP 4–7 & 11–13, 2026</div>
+    <div style="margin-top:10px;font-size:0.9rem;color:var(--muted);">
+      Your concert days: <strong style="color:#fff;">Sat Sep 5</strong> & <strong style="color:#fff;">Sun Sep 13</strong> • 2 people
+    </div>
+    <div class="alert-tickets" style="display:block;margin-top:14px;">
+      🎫 <span>GENERAL TICKET SALE STARTS TODAY</span> — June 8, 2026 at 19:00 BRT!
+    </div>
+    <div class="hero-links">
+      <a href="https://www.ticketmaster.com.br/event/rock-in-rio-2026" target="_blank">🎟️ Buy Tickets</a>
+      <a href="https://rockinrio.com/rio/pt-br/home/" target="_blank">🎵 Official Site</a>
+      <a href="https://rockinrio.com/rio/pt-br/line-up/" target="_blank">🎤 Line-Up</a>
+      <a href="https://rockinrio.com/rio/pt-br/informacoes/" target="_blank">ℹ️ Info</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ QUICK LINKS ═══════════ -->
+<section style="padding-bottom:0;">
+  <div class="container">
+    <div class="quicklinks">
+      <h3>🔗 Quick Actions — Open in New Tab</h3>
+      <div class="quicklinks-grid">
+        <a href="https://www.ticketmaster.com.br/event/rock-in-rio-2026" target="_blank"><span class="icon">🎫</span> Buy Tickets (Ticketmaster)</a>
+        <a href="https://www.google.com/travel/flights?q=flights+from+La+Paz+LPB+to+Rio+de+Janeiro+GIG+Sep+4+2026+return+Sep+14+2026&curr=USD" target="_blank"><span class="icon">✈️</span> Google Flights search</a>
+        <a href="https://www.airbnb.com/s/Barra-da-Tijuca--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank"><span class="icon">🏠</span> Airbnb Barra da Tijuca</a>
+        <a href="https://www.airbnb.com/s/Copacabana--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank"><span class="icon">🏠</span> Airbnb Copacabana</a>
+        <a href="https://www.airbnb.com/s/Ipanema--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank"><span class="icon">🏠</span> Airbnb Ipanema</a>
+        <a href="https://www.airbnb.com/s/Botafogo--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank"><span class="icon">🏠</span> Airbnb Botafogo</a>
+        <a href="https://www.google.com/maps/dir/Barra+da+Tijuca,+Rio+de+Janeiro/Cidade+do+Rock,+Rio+de+Janeiro/" target="_blank"><span class="icon">🗺️</span> Barra → Cidade do Rock</a>
+        <a href="https://www.google.com/maps/dir/Copacabana,+Rio+de+Janeiro/Cidade+do+Rock,+Rio+de+Janeiro/" target="_blank"><span class="icon">🗺️</span> Copacabana → Cidade do Rock</a>
+        <a href="https://www.tremdocorcovado.com.br/en/home.html" target="_blank"><span class="icon">⛪</span> Christ the Redeemer tix</a>
+        <a href="https://www.bondinho.com.br/en/" target="_blank"><span class="icon">🏔️</span> Sugarloaf tickets</a>
+        <a href="https://wise.com/us/multi-currency-account/" target="_blank"><span class="icon">💱</span> Wise (best FX rates)</a>
+        <a href="https://www.airalo.com/brazil-esim" target="_blank"><span class="icon">📱</span> Airalo eSIM Brasil</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TICKETS ═══════════ -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span class="icon">🎫</span> Tickets</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Full Price (Inteira)</h3>
+        <div class="price">R$ 870 <small>/ person / day</small></div>
+        <ul>
+          <li>2 people × 2 days = <strong>R$ 3,480</strong></li>
+          <li>≈ USD $597 (at ~R$5.83/USD)</li>
+          <li>≈ Bs 4,180</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Half-Price (Meia-Entrada)</h3>
+        <div class="price">R$ 435 <small>/ person / day</small></div>
+        <ul>
+          <li>2 people × 2 days = <strong>R$ 1,740</strong></li>
+          <li>≈ USD $298</li>
+          <li>≈ Bs 2,090</li>
+          <li style="color:var(--accent2);">⚠️ Requires student ID or eligible doc</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Where & How to Buy</h3>
+        <ul>
+          <li><strong>Official seller:</strong><br><a href="https://www.ticketmaster.com.br/event/rock-in-rio-2026" target="_blank">Ticketmaster Brasil →</a></li>
+          <li><strong>Rock in Rio Card:</strong> ❌ SOLD OUT</li>
+          <li><strong>General sale:</strong> June 8 @ 19:00 BRT</li>
+          <li>Payment: credit card (up to 8x), Pix</li>
+          <li>Delivery: digital ticket (app)</li>
+        </ul>
+        <a href="https://www.ticketmaster.com.br/event/rock-in-rio-2026" target="_blank" class="btn-link">Buy Tickets Now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FLIGHTS ═══════════ -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span class="icon">✈️</span> Flights — La Paz (LPB) → Rio de Janeiro (GIG)</h2>
+    <p style="color:var(--muted);margin-bottom:8px;">
+      Round trip for 2 adults • Economy • Sep 4 → Sep 14, 2026 • No direct flights
+    </p>
+    <p style="margin-bottom:16px;">
+      <a href="https://www.google.com/travel/flights?q=flights+from+La+Paz+LPB+to+Rio+de+Janeiro+GIG+Sep+4+2026+return+Sep+14+2026&curr=USD" target="_blank" style="font-weight:700;">🔍 Search live prices on Google Flights →</a>
+      &nbsp;|&nbsp;
+      <a href="https://www.skyscanner.com/transport/flights/lpb/rio/240904/240914/?adults=2" target="_blank">Skyscanner →</a>
+      &nbsp;|&nbsp;
+      <a href="https://www.kayak.com/flights/LPB-GIG/2026-09-04/2026-09-14/2adults" target="_blank">Kayak →</a>
+    </p>
+    <table class="flight-table">
+      <thead>
+        <tr>
+          <th>Airline</th>
+          <th>Route</th>
+          <th>Duration</th>
+          <th>Layover</th>
+          <th>Price/Person</th>
+          <th>Total (2 ppl)</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>BoA</strong></td>
+          <td>LPB → VVI → GIG</td>
+          <td>11h 50m</td>
+          <td><span class="badge badge-yellow">7h 40m (VVI)</span></td>
+          <td>~$595 USD</td>
+          <td><strong>~$1,190</strong></td>
+          <td>Overnight layover — hotel needed in Santa Cruz</td>
+        </tr>
+        <tr style="background:rgba(46,204,113,0.04);">
+          <td><strong>LATAM</strong> ★</td>
+          <td>LPB → LIM → GIG</td>
+          <td>10h 15m</td>
+          <td><span class="badge badge-green">3h 05m (LIM)</span></td>
+          <td>~$743 USD</td>
+          <td><strong>~$1,486</strong></td>
+          <td>Best option — daytime, short layover</td>
+        </tr>
+        <tr>
+          <td><strong>BoA + GOL</strong></td>
+          <td>LPB → VVI → GRU → GIG</td>
+          <td>~14h</td>
+          <td><span class="badge badge-yellow">2 stops</span></td>
+          <td>~$650 USD</td>
+          <td><strong>~$1,300</strong></td>
+          <td>Via São Paulo (GRU)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px;padding:14px 18px;background:rgba(52,152,219,0.08);border-radius:8px;border-left:3px solid var(--blue);">
+      <strong>💡 Recommendation:</strong> <strong>LATAM via Lima</strong> — best balance of price, duration, and comfort. Book on <a href="https://www.latamairlines.com" target="_blank">latamairlines.com</a> or via Google Flights. BoA is cheaper but the 7h40m overnight layover in Santa Cruz is rough — you'd need a hotel.
+    </div>
+    <p style="margin-top:10px;color:var(--muted);font-size:0.82rem;">
+      ⚠️ Prices are estimates from June 2026. Final prices depend on booking date. Book early — prices climb 30–50% in the final month before the festival.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════ NEIGHBORHOODS ═══════════ -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span class="icon">🏠</span> Where to Stay — Neighborhood Comparison</h2>
+    <p style="color:var(--muted);margin-bottom:18px;">
+      All prices are estimates for 10 nights (Sep 4–14) for 2 adults.
+      <a href="https://www.airbnb.com/s/Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank">Search all Rio on Airbnb →</a>
+    </p>
+    <div class="neigh-compare">
+      <div class="neigh-card recommended">
+        <h4>🏖️ Barra da Tijuca</h4>
+        <div class="dist">📍 5–10 km to Cidade do Rock</div>
+        <p style="font-size:0.9rem;color:var(--muted);">Modern, planned district. Closest to the venue. Shopping malls, beach, gated communities. Car-dependent but safest option for the event.</p>
+        <div class="neigh-meta">
+          <span>Safety: <strong style="color:#2ecc71;">★★★★★</strong></span>
+          <span>Airbnb: <strong>~$70–120/night</strong></span>
+          <span>Uber to venue: <strong>~R$25–40</strong></span>
+        </div>
+        <div class="neigh-links">
+          <a href="https://www.airbnb.com/s/Barra-da-Tijuca--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank">🔍 Airbnb</a>
+          <a href="https://www.google.com/maps/dir/Barra+da+Tijuca/Cidade+do+Rock,+Rio+de+Janeiro/" target="_blank">🗺️ to Venue</a>
+        </div>
+      </div>
+      <div class="neigh-card">
+        <h4>🌊 Copacabana</h4>
+        <div class="dist">📍 25–30 km to Cidade do Rock</div>
+        <p style="font-size:0.9rem;color:var(--muted);">Iconic beach neighborhood. Touristy, good infrastructure, metro access. Farther from venue but great for non-concert days.</p>
+        <div class="neigh-meta">
+          <span>Safety: <strong style="color:#f7b731;">★★★☆☆</strong></span>
+          <span>Airbnb: <strong>~$50–90/night</strong></span>
+          <span>Uber to venue: <strong>~R$60–100</strong></span>
+        </div>
+        <div class="neigh-links">
+          <a href="https://www.airbnb.com/s/Copacabana--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank">🔍 Airbnb</a>
+          <a href="https://www.google.com/maps/dir/Copacabana/Cidade+do+Rock,+Rio+de+Janeiro/" target="_blank">🗺️ to Venue</a>
+        </div>
+      </div>
+      <div class="neigh-card">
+        <h4>✨ Ipanema / Leblon</h4>
+        <div class="dist">📍 27–32 km to Cidade do Rock</div>
+        <p style="font-size:0.9rem;color:var(--muted);">Upscale, safest neighborhoods. Best dining, shopping, and beach in Rio. Most expensive but best quality of life.</p>
+        <div class="neigh-meta">
+          <span>Safety: <strong style="color:#2ecc71;">★★★★★</strong></span>
+          <span>Airbnb: <strong>~$90–150/night</strong></span>
+          <span>Uber to venue: <strong>~R$70–120</strong></span>
+        </div>
+        <div class="neigh-links">
+          <a href="https://www.airbnb.com/s/Ipanema--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank">🔍 Airbnb</a>
+          <a href="https://www.google.com/maps/dir/Ipanema/Cidade+do+Rock,+Rio+de+Janeiro/" target="_blank">🗺️ to Venue</a>
+        </div>
+      </div>
+      <div class="neigh-card">
+        <h4>🏙️ Botafogo</h4>
+        <div class="dist">📍 23–28 km to Cidade do Rock</div>
+        <p style="font-size:0.9rem;color:var(--muted);">Residential, well-connected. Metro access, views of Sugarloaf. Solid middle-ground with local vibe.</p>
+        <div class="neigh-meta">
+          <span>Safety: <strong style="color:#2ecc71;">★★★★☆</strong></span>
+          <span>Airbnb: <strong>~$45–80/night</strong></span>
+          <span>Uber to venue: <strong>~R$55–90</strong></span>
+        </div>
+        <div class="neigh-links">
+          <a href="https://www.airbnb.com/s/Botafogo--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank">🔍 Airbnb</a>
+          <a href="https://www.google.com/maps/dir/Botafogo/Cidade+do+Rock,+Rio+de+Janeiro/" target="_blank">🗺️ to Venue</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TRANSPORT ═══════════ -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span class="icon">🚌</span> Getting to Cidade do Rock</h2>
+    <p style="color:var(--muted);margin-bottom:18px;">
+      Cidade do Rock is in Barra da Tijuca (Av. Salvador Allende, 6555).
+      <a href="https://www.google.com/maps/place/Cidade+do+Rock/" target="_blank">📍 View on Google Maps →</a>
+    </p>
+    <div class="card-grid">
+      <div class="card">
+        <h3>🚌 BRT TransOeste</h3>
+        <p style="color:var(--muted);font-size:0.9rem;">Dedicated bus rapid transit corridor. Best public transport option.</p>
+        <ul>
+          <li>Nearest station: <strong>Riocentro</strong> or <strong>Terminal Jardim Oceânico</strong></li>
+          <li>Fare: ~R$4.30 per trip</li>
+          <li>From Barra: 15–25 min</li>
+          <li>From Zona Sul: Metro → Jardim Oceânico + BRT (50–70 min)</li>
+          <li>On concert days: extended hours, extra buses</li>
+        </ul>
+        <span class="badge badge-green">Cheapest</span>
+        <div style="margin-top:10px;">
+          <a href="https://www.mobirio.com.br/" target="_blank">BRT Info →</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🚗 Uber / 99</h3>
+        <p style="color:var(--muted);font-size:0.9rem;">Most convenient door-to-door. Surge pricing on concert days.</p>
+        <ul>
+          <li>From Barra: <strong>R$25–40</strong> (10–15 min)</li>
+          <li>From Copacabana: <strong>R$60–100</strong> (35–50 min)</li>
+          <li>From Ipanema: <strong>R$70–120</strong> (40–55 min)</li>
+          <li>From Botafogo: <strong>R$55–90</strong> (35–50 min)</li>
+          <li>⚠️ Prices may 2–3× on concert evenings</li>
+        </ul>
+        <span class="badge badge-blue">Most Convenient</span>
+        <div style="margin-top:10px;">
+          <a href="https://www.uber.com/global/en/cities/rio-de-janeiro/" target="_blank">Uber Rio →</a>
+          &nbsp;|&nbsp;
+          <a href="https://99app.com/" target="_blank">99 App →</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🚐 Official Shuttle</h3>
+        <p style="color:var(--muted);font-size:0.9rem;">Rock in Rio typically runs official shuttles from key points. Check official site closer to event.</p>
+        <ul>
+          <li>Pickup: <strong>Alvorada Terminal</strong> (Barra) & selected hotels</li>
+          <li>Price: ~R$25–50 round trip (TBC for 2026)</li>
+        </ul>
+        <span class="badge badge-yellow">Official</span>
+        <div style="margin-top:10px;">
+          <a href="https://rockinrio.com/rio/pt-br/informacoes/" target="_blank">Official Info →</a>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:20px;padding:16px 20px;background:var(--card);border-radius:10px;border:1px solid var(--border);">
+      <strong>🎯 Best strategy:</strong> Book Airbnb in <strong>Barra da Tijuca</strong>. On concert days, take BRT or Uber (short 10–15 min ride). Save ~R$100+/day in transport vs staying in Zona Sul. On non-concert days, Uber to Zona Sul beaches (~R$40 one way).
+      <a href="https://www.google.com/maps/dir/Barra+da+Tijuca/Copacabana/" target="_blank">Barra → Copacabana route →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ITINERARY ═══════════ -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span class="icon">📅</span> 10-Day Itinerary</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">Thu, Sep 3</div>
+        <div class="tl-title">🛫 Depart La Paz → Rio de Janeiro</div>
+        <div class="tl-desc">Fly out evening/night. Arrive Sep 4 morning or afternoon depending on flight. Check into Airbnb.
+          <br><a href="https://www.google.com/travel/flights?q=flights+from+La+Paz+LPB+to+Rio+de+Janeiro+GIG+Sep+3+2026+return+Sep+14+2026&curr=USD" target="_blank">Search flights →</a>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Fri, Sep 4</div>
+        <div class="tl-title">🏙️ Settle in + Explore Barra</div>
+        <div class="tl-desc">Groceries, SIM card, explore Barra da Tijuca beach and shopping (BarraShopping, VillageMall). Festival Day 1 (optional to attend).
+          <br><a href="https://www.google.com/maps/search/supermarket+Barra+da+Tijuca/" target="_blank">Nearby supermarkets →</a>
+        </div>
+      </div>
+      <div class="tl-item concert">
+        <div class="tl-date">Sat, Sep 5 🎸</div>
+        <div class="tl-title">🔥 ROCK IN RIO — DAY 1 (Your Concert!)</div>
+        <div class="tl-desc">Arrive early at Cidade do Rock. Headliners TBA. Stay hydrated, wear comfortable shoes! Cidade do Rock has water stations and food courts.
+          <br><a href="https://rockinrio.com/rio/pt-br/line-up/" target="_blank">Line-up →</a>
+          &nbsp;|&nbsp;
+          <a href="https://www.google.com/maps/place/Cidade+do+Rock/" target="_blank">Venue map →</a>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Sun, Sep 6</div>
+        <div class="tl-title">😴 Rest & Recovery</div>
+        <div class="tl-desc">Beach day at <strong>Praia da Barra</strong> or <strong>Recreio dos Bandeirantes</strong>. Light exploring. Festival continues (optional to attend second day).
+          <br><a href="https://www.google.com/maps/search/praia+da+barra+da+tijuca/" target="_blank">Praia da Barra →</a>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Mon, Sep 7</div>
+        <div class="tl-title">🇧🇷 Brazil Independence Day!</div>
+        <div class="tl-desc">National holiday! Expect crowds at tourist spots. Festival final day of Weekend 1. Parades in Centro. Most businesses closed or limited hours.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Tue–Thu, Sep 8–10</div>
+        <div class="tl-title">🏖️ Rio Exploration Days</div>
+        <div class="tl-desc">
+          <strong>Cristo Redentor</strong> <a href="https://www.tremdocorcovado.com.br/en/home.html" target="_blank">(tickets →)</a> •
+          <strong>Pão de Açúcar</strong> <a href="https://www.bondinho.com.br/en/" target="_blank">(tickets →)</a> •
+          <strong>Escadaria Selarón</strong> <a href="https://www.google.com/maps/place/Escadaria+Selar%C3%B3n/" target="_blank">(map →)</a> •
+          <strong>Maracanã</strong> <a href="https://www.tourmaracana.com.br/" target="_blank">(tour →)</a> •
+          <strong>Jardim Botânico</strong> <a href="https://www.google.com/maps/place/Jardim+Bot%C3%A2nico+do+Rio+de+Janeiro/" target="_blank">(map →)</a>
+          <br>Midweek = fewer crowds everywhere. Book Christ the Redeemer tickets in advance — they sell out!
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Fri, Sep 11</div>
+        <div class="tl-title">🎵 Festival Weekend 2 Begins</div>
+        <div class="tl-desc">Rest day or attend Day 1 of second weekend (optional). Save energy for Sunday's closing day.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Sat, Sep 12</div>
+        <div class="tl-title">🌴 Last Free Day</div>
+        <div class="tl-desc"><strong>Niterói ferry</strong> <a href="https://www.google.com/maps/place/Pra%C3%A7a+XV+ferry+terminal/" target="_blank">(terminal →)</a> — stunning skyline views from across the bay. Or <strong>Parque Lage</strong>, <strong>Santa Teresa</strong>. Early night recommended for tomorrow!</div>
+      </div>
+      <div class="tl-item concert">
+        <div class="tl-date">Sun, Sep 13 🎸</div>
+        <div class="tl-title">🔥 ROCK IN RIO — DAY 2 (Your Concert!)</div>
+        <div class="tl-desc">Final festival day! Closing headliners. Last chance for official merch. Prepare for a late night — closing acts go past midnight.
+          <br><a href="https://rockinrio.com/rio/pt-br/line-up/" target="_blank">Check line-up →</a>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Mon, Sep 14</div>
+        <div class="tl-title">🛫 Return: Rio → La Paz</div>
+        <div class="tl-desc">Check out, head to GIG airport (30–45 min from Barra). Flight home. Arrive La Paz evening.
+          <br><a href="https://www.google.com/maps/dir/Barra+da+Tijuca/Gale%C3%A3o+International+Airport+GIG/" target="_blank">Airbnb → GIG airport route →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ BUDGET ═══════════ -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span class="icon">💰</span> Estimated Budget (2 People, 10 Nights)</h2>
+    <div class="budget-grid">
+      <div class="budget-item">
+        <div class="label">✈️ Flights</div>
+        <div class="amount" style="color:var(--blue);">$1,190–1,486</div>
+        <div class="note">Round trip, 2 ppl. <a href="https://www.google.com/travel/flights?q=flights+from+La+Paz+LPB+to+Rio+de+Janeiro+GIG+Sep+4+2026+return+Sep+14+2026&curr=USD" target="_blank">Search →</a></div>
+      </div>
+      <div class="budget-item">
+        <div class="label">🎫 Tickets</div>
+        <div class="amount" style="color:var(--accent);">$298–597</div>
+        <div class="note">2 ppl × 2 days. <a href="https://www.ticketmaster.com.br/event/rock-in-rio-2026" target="_blank">Buy →</a></div>
+      </div>
+      <div class="budget-item">
+        <div class="label">🏠 Airbnb</div>
+        <div class="amount" style="color:var(--accent2);">$500–1,200</div>
+        <div class="note">10 nights. <a href="https://www.airbnb.com/s/Barra-da-Tijuca--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank">Search →</a></div>
+      </div>
+      <div class="budget-item">
+        <div class="label">🚗 Transport</div>
+        <div class="amount" style="color:var(--green);">$150–300</div>
+        <div class="note">Uber + BRT + airport transfers</div>
+      </div>
+      <div class="budget-item">
+        <div class="label">🍽️ Food & Fun</div>
+        <div class="amount" style="color:var(--green);">$400–700</div>
+        <div class="note">Meals (~R$50–100/day/pp), drinks, tours</div>
+      </div>
+      <div class="budget-item">
+        <div class="label">📋 Misc</div>
+        <div class="amount" style="color:var(--muted);">$100–200</div>
+        <div class="note">SIM/eSIM, travel insurance, souvenirs</div>
+      </div>
+    </div>
+    <div class="budget-total">
+      <div class="label">TOTAL ESTIMATED (2 People)</div>
+      <div class="amount">$2,638 – $4,483 USD</div>
+      <div class="note" style="color:var(--muted);margin-top:8px;">
+        ≈ Bs 18,500 – 31,400 (at ~Bs 7/USD)<br>
+        <strong>Budget tier:</strong> BoA + half-price + Botafogo = ~$2,600<br>
+        <strong>Mid tier (recommended):</strong> LATAM + half-price + Barra = ~$3,200<br>
+        <strong>Premium:</strong> LATAM + full-price + Ipanema = ~$4,500<br>
+        <strong style="color:var(--accent2);">→ Aim for ~$3,000–3,500</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TIPS ═══════════ -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span class="icon">💡</span> Essential Tips & Resources</h2>
+    <div class="tips-list">
+      <div class="tip">
+        <strong>🛂 Documents</strong>
+        Bolivians need a valid passport to enter Brazil. No visa required for tourism (up to 90 days). Check passport expiry — must be valid 6+ months from entry.
+        <br><a href="https://www.gov.br/mre/pt-br/embaixada-la-paz" target="_blank">Brazilian Embassy in La Paz →</a>
+      </div>
+      <div class="tip">
+        <strong>💳 Money</strong>
+        Brazilian Real (R$). Cards widely accepted. Carry some cash for street vendors. Exchange rate ~R$5.83/USD.
+        <br><a href="https://wise.com/us/multi-currency-account/" target="_blank">Wise (best FX rates) →</a>
+        &nbsp;|&nbsp;
+        <a href="https://www.xe.com/currencyconverter/convert/?From=USD&To=BRL" target="_blank">Live USD→BRL rate →</a>
+      </div>
+      <div class="tip">
+        <strong>📱 Connectivity</strong>
+        Buy prepaid SIM at airport or Claro/TIM/Vivo store (~R$30 for 10GB). eSIM: Airalo or Holafly ($15–25 for 10 days).
+        <br><a href="https://www.airalo.com/brazil-esim" target="_blank">Airalo Brasil eSIM →</a>
+        &nbsp;|&nbsp;
+        <a href="https://www.holafly.com/esim-brazil/" target="_blank">Holafly Brasil →</a>
+      </div>
+      <div class="tip">
+        <strong>🔒 Safety</strong>
+        Don't flash valuables. Use Uber (not street taxis). Avoid empty streets at night. Keep phone in front pocket. Barra is very safe; Zona Sul requires more awareness.
+        <br><a href="https://www.uber.com/global/en/cities/rio-de-janeiro/" target="_blank">Uber Rio →</a>
+      </div>
+      <div class="tip">
+        <strong>☀️ Weather</strong>
+        September = late winter / early spring. 20–28°C (68–82°F). Light jacket for evenings. Some rain possible.
+        <br><a href="https://www.accuweather.com/en/br/rio-de-janeiro/45449/september-weather/45449?year=2026" target="_blank">Rio September weather →</a>
+      </div>
+      <div class="tip">
+        <strong>🎒 Concert Day Survival</strong>
+        Comfortable sneakers. Power bank. Cidade do Rock is HUGE (15+ min walks between stages). Water refill stations available. No outside food/drinks allowed. Lockers available for rent.
+      </div>
+      <div class="tip">
+        <strong>🗣️ Language</strong>
+        Portuguese, not Spanish! Basics: "Obrigado" = thanks, "Por favor" = please, "Quanto custa?" = how much? Many Cariocas understand some Spanish.
+        <br><a href="https://translate.google.com/?sl=auto&tl=pt" target="_blank">Google Translate PT →</a>
+      </div>
+      <div class="tip">
+        <strong>⚡ Book EARLY</strong>
+        Ticket sale is TODAY. Airbnb prices surge as September approaches. Book flights and Airbnb within 1–2 weeks of buying tickets.
+        <br><a href="https://www.ticketmaster.com.br/event/rock-in-rio-2026" target="_blank">Buy tickets now →</a>
+        &nbsp;|&nbsp;
+        <a href="https://www.airbnb.com/s/Barra-da-Tijuca--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank">Book Airbnb →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ACTION PLAN ═══════════ -->
+<section>
+  <div class="container">
+    <h2 class="section-title"><span class="icon">✅</span> Action Plan — What To Do Now</h2>
+    <div class="card-grid">
+      <div class="card" style="border-left:4px solid var(--accent);">
+        <h3>🔴 TODAY (Jun 8)</h3>
+        <ul>
+          <li><a href="https://www.ticketmaster.com.br/event/rock-in-rio-2026" target="_blank">Buy tickets at 19:00 BRT →</a></li>
+          <li>Target: 2× half-price or full tickets for Sep 5 & 13</li>
+          <li><a href="https://www.ticketmaster.com.br/" target="_blank">Create Ticketmaster account →</a> beforehand!</li>
+          <li>Have credit card ready — tickets sell fast</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--accent2);">
+        <h3>🟡 This Week (Jun 9–14)</h3>
+        <ul>
+          <li><a href="https://www.google.com/travel/flights?q=flights+from+La+Paz+LPB+to+Rio+de+Janeiro+GIG+Sep+4+2026+return+Sep+14+2026&curr=USD" target="_blank">Book flights →</a> — prices rise closer to date</li>
+          <li><a href="https://www.airbnb.com/s/Barra-da-Tijuca--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank">Book Airbnb in Barra da Tijuca →</a></li>
+          <li>Check passport validity (6+ months from Sep 2026)</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--blue);">
+        <h3>🟢 Before September</h3>
+        <ul>
+          <li><a href="https://www.google.com/maps/@-22.9,-43.2,12z" target="_blank">Download offline Google Maps for Rio →</a></li>
+          <li>Install <a href="https://www.uber.com/global/en/cities/rio-de-janeiro/" target="_blank">Uber →</a> & <a href="https://99app.com/" target="_blank">99 →</a> apps</li>
+          <li><a href="https://www.tremdocorcovado.com.br/en/home.html" target="_blank">Book Christ the Redeemer →</a></li>
+          <li><a href="https://www.bondinho.com.br/en/" target="_blank">Book Sugarloaf →</a></li>
+          <li>Get <a href="https://www.airalo.com/brazil-esim" target="_blank">eSIM →</a> or plan SIM card purchase</li>
+          <li>Pack: summer clothes + 1 jacket + good sneakers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Plan compiled by Hermes for Diego • June 8, 2026</p>
+  <p style="margin-top:6px;color:var(--muted);">Prices are estimates. Always verify before booking. Exchange rates and availability may change.</p>
+  <p style="margin-top:10px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+    <a href="https://rockinrio.com/rio/pt-br/home/" target="_blank">Rock in Rio Official</a>
+    <a href="https://www.ticketmaster.com.br/event/rock-in-rio-2026" target="_blank">Ticketmaster Brasil</a>
+    <a href="https://www.google.com/travel/flights?q=flights+from+La+Paz+LPB+to+Rio+de+Janeiro+GIG+Sep+4+2026+return+Sep+14+2026&curr=USD" target="_blank">Google Flights</a>
+    <a href="https://www.airbnb.com/s/Barra-da-Tijuca--Rio-de-Janeiro--Brazil/homes?checkin=2026-09-04&checkout=2026-09-14&adults=2" target="_blank">Airbnb Barra</a>
+    <a href="https://www.google.com/maps/place/Cidade+do+Rock/" target="_blank">Cidade do Rock Map</a>
+    <a href="https://www.tremdocorcovado.com.br/en/home.html" target="_blank">Cristo Redentor</a>
+    <a href="https://www.bondinho.com.br/en/" target="_blank">Pão de Açúcar</a>
+    <a href="https://wise.com" target="_blank">Wise</a>
+    <a href="https://www.airalo.com/brazil-esim" target="_blank">Airalo eSIM</a>
+  </p>
+</footer>
+
+</body>
+</html>
